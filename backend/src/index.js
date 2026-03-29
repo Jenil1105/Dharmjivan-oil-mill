@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const itemRoutes = require('./routes/items');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ if (!mongoUri) {
   process.exit(1);
 }
 
+app.use(cors());
 app.use(express.json());
 
 mongoose
