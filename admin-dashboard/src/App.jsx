@@ -7,15 +7,24 @@ import Footer from './components/Footer'
 
 function App() {
   const [activeView, setActiveView] = useState('dashboard')
+  const [selectedItem, setSelectedItem] = useState(null)
 
   const renderContent = () => {
     switch (activeView) {
       case 'dashboard':
         return <Dashboard setActiveView={setActiveView} />
       case 'add-item':
-        return <AddItemForm />
+        return <AddItemForm onSuccess={() => setActiveView('items')} />
       case 'items':
-        return <ViewItems setActiveView={setActiveView} />
+        return <ViewItems setActiveView={setActiveView} setSelectedItem={setSelectedItem} />
+      case 'edit-item':
+        return (
+          <AddItemForm
+            mode="edit"
+            initialData={selectedItem}
+            onSuccess={() => setActiveView('items')}
+          />
+        )
       default:
         return <Dashboard setActiveView={setActiveView} />
     }

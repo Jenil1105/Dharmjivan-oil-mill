@@ -11,8 +11,16 @@ const initialFormState = {
   image_url: '',
 }
 
-function AddItemForm() {
-  const [formData, setFormData] = useState(initialFormState)
+function AddItemForm({ mode = 'add', initialData = null, onSuccess }) {
+  const [formData, setFormData] = useState(initialData ? {
+    name: initialData.name || '',
+    description: initialData.description || '',
+    price: initialData.price || '',
+    discounted_price: initialData.discounted_price || '',
+    available_quantity: initialData.available_quantity || '',
+    category: initialData.category || '',
+    image_url: initialData.image_url || '',
+  } : initialFormState)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -37,11 +45,18 @@ function AddItemForm() {
         available_quantity: parseInt(formData.available_quantity) || 0,
       }
 
-      await axios.post('http://localhost:3000/items', itemData)
-      setMessage('Item added successfully!')
+      if (mode === 'edit' && initialData?._id) {
+        await axios.put(`http://localhost:3000/items/${initialData._id}`, itemData)
+        setMessage('Item updated successfully!')
+      } else {
+        await axios.post('http://localhost:3000/items', itemData)
+        setMessage('Item added successfully!')
+      }
+
       setFormData(initialFormState)
+      if (onSuccess) onSuccess()
     } catch (error) {
-      setMessage(`Error adding item: ${error.response?.data?.error || error.message}`)
+      setMessage(`Error ${mode === 'edit' ? 'updating' : 'adding'} item: ${error.response?.data?.error || error.message}`)
     } finally {
       setLoading(false)
     }
@@ -193,8 +208,17 @@ function AddItemForm() {
               disabled={loading}
               className="w-full rounded-full bg-gradient-to-r from-red-600 to-amber-500 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-95 focus:outline-none focus:ring-4 focus:ring-red-100 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
-              {loading ? 'Saving item...' : 'Publish item'}
+              {loading ? (mode === 'edit' ? 'Updating item...' : 'Saving item...') : mode === 'edit' ? 'Update item' : 'Publish item'}
             </button>
+            {mode === 'edit' && (
+              <button
+                type="button"
+                onClick={() => onSuccess?.()}
+                className="w-full rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none sm:w-auto"
+              >
+                Cancel
+              </button>
+            )}
           </div>
 
           {message && (

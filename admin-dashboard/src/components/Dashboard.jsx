@@ -91,64 +91,22 @@ function Dashboard({ setActiveView }) {
   }
 
   return (
-    <div className="space-y-5 sm:space-y-6">
-      <section className="overflow-hidden rounded-[1.75rem] border border-red-200 bg-[linear-gradient(135deg,#d82418_0%,#e72a1d_60%,#f3b20c_100%)] p-5 text-white shadow-[var(--shadow-soft)] sm:rounded-[2rem] sm:p-7">
-        <div className="grid gap-6 lg:grid-cols-[1.5fr_0.9fr] lg:gap-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/80">Dharmjivan Dashboard</p>
-            <h2 className="mt-4 max-w-2xl text-2xl font-extrabold leading-tight sm:text-4xl">
-              A brighter admin experience built around your brand.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/85">
-              See business metrics, stock status, and catalog performance in a cleaner red-and-gold layout
-              inspired by the company logo.
-            </p>
+    <div className="space-y-4 sm:space-y-4">
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <button
-                onClick={() => setActiveView('add-item')}
-                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-red-700 transition hover:bg-red-50"
-              >
-                Add product
-              </button>
-              <button
-                onClick={() => setActiveView('items')}
-                className="rounded-full border border-white/35 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Open catalog
-              </button>
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">Top category</p>
-              <p className="mt-3 text-2xl font-bold">{stats.topCategory}</p>
-              <p className="mt-2 text-sm text-white/75">Highest representation in your current catalog.</p>
-            </div>
-            <div className="rounded-3xl border border-white/15 bg-black/10 p-5 backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">Average price</p>
-              <p className="mt-3 text-2xl font-bold">{formatCurrency(stats.averagePrice)}</p>
-              <p className="mt-2 text-sm text-white/75">Helps benchmark positioning across products.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-3 sm:gap-4 md:grid-cols-2 xl:grid-cols-3">
         {statCards.map((card) => (
-          <article key={card.key} className="relative overflow-hidden rounded-[1.5rem] border border-red-100 bg-white p-5 shadow-[var(--shadow-soft)]">
+          <article key={card.key} className="relative overflow-hidden rounded-xl border border-red-100 bg-white p-4 shadow-[var(--shadow-soft)]">
             <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.accent}`} />
-            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">{card.label}</p>
-            <p className="mt-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">{card.label}</p>
+            <p className="mt-3 text-2xl font-extrabold text-slate-900 sm:text-3xl">
               {card.key === 'totalRevenue' ? formatCurrency(stats[card.key]) : stats[card.key]}
             </p>
-            <p className="mt-3 text-sm leading-6 text-slate-500">{card.note}</p>
+            <p className="mt-2 text-xs leading-5 text-slate-500">{card.note}</p>
           </article>
         ))}
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
         <div className="rounded-[1.5rem] border border-red-100 bg-[var(--panel-strong)] p-5 shadow-[var(--shadow-soft)] sm:p-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -158,21 +116,21 @@ function Dashboard({ setActiveView }) {
             <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">Live summary</span>
           </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-3xl bg-red-50 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-400">Low stock items</p>
-              <p className="mt-3 text-3xl font-extrabold text-red-700">{stats.lowStockItems}</p>
-              <p className="mt-2 text-sm text-red-700/75">Products with 10 or fewer units remaining.</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl bg-red-50 px-4 py-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-400">Low stock</p>
+              <p className="mt-2 text-2xl font-extrabold text-red-700">{stats.lowStockItems}</p>
+              <p className="mt-1 text-xs text-red-700/75">Items with ≤10 units.</p>
             </div>
-            <div className="rounded-3xl bg-amber-50 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-500">Sales momentum</p>
-              <p className="mt-3 text-3xl font-extrabold text-amber-700">{stats.totalSold}</p>
-              <p className="mt-2 text-sm text-amber-700/75">Total fulfilled units across all products.</p>
+            <div className="rounded-2xl bg-amber-50 px-4 py-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-500">Sales</p>
+              <p className="mt-2 text-2xl font-extrabold text-amber-700">{stats.totalSold}</p>
+              <p className="mt-1 text-xs text-amber-700/75">Total units sold.</p>
             </div>
-            <div className="rounded-3xl bg-orange-50 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500">Catalog depth</p>
-              <p className="mt-3 text-3xl font-extrabold text-orange-700">{stats.totalItems}</p>
-              <p className="mt-2 text-sm text-orange-700/75">Active items available to shoppers now.</p>
+            <div className="rounded-2xl bg-orange-50 px-4 py-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-orange-500">Catalog</p>
+              <p className="mt-2 text-2xl font-extrabold text-orange-700">{stats.totalItems}</p>
+              <p className="mt-1 text-xs text-orange-700/75">Total live products.</p>
             </div>
           </div>
         </div>
