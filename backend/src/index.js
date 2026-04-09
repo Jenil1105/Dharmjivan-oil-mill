@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const itemRoutes = require('./routes/items');
+const userRoutes = require('./routes/user');
 const cors = require('cors');
 
 const app = express();
@@ -30,6 +31,9 @@ app.get('/', (req, res) => {
 
 // Use item routes
 app.use('/items', itemRoutes);
+
+// User routes
+app.use('/users', userRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
