@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard'
 import AddItemForm from './components/AddItemForm'
@@ -6,8 +6,36 @@ import ViewItems from './components/ViewItems'
 import Footer from './components/Footer'
 
 function App() {
-  const [activeView, setActiveView] = useState('dashboard')
+  const [activeView, setInternalActiveView] = useState(() => {
+    const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+    if (path === '/add-item') return 'add-item';
+    if (path === '/items') return 'items';
+    return 'dashboard';
+  })
   const [selectedItem, setSelectedItem] = useState(null)
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/add-item') setInternalActiveView('add-item');
+      else if (path === '/items') setInternalActiveView('items');
+      else setInternalActiveView('dashboard');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const setActiveView = (view) => {
+    let path = '/';
+    if (view === 'add-item') path = '/add-item';
+    if (view === 'items' || view === 'edit-item') path = '/items';
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', path);
+    }
+    setInternalActiveView(view);
+  };
+
+
 
   const renderContent = () => {
     switch (activeView) {

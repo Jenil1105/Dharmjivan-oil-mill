@@ -201,8 +201,8 @@ function AddItemForm({ mode = 'add', initialData = null, onSuccess }) {
             />
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-500">Required fields help keep listings complete and searchable.</p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center ">
+
             <button
               type="submit"
               disabled={loading}
@@ -223,11 +223,10 @@ function AddItemForm({ mode = 'add', initialData = null, onSuccess }) {
 
           {message && (
             <div
-              className={`rounded-2xl border px-4 py-3 text-sm font-medium ${
-                message.includes('Error')
-                  ? 'border-red-200 bg-red-50 text-red-700'
-                  : 'border-amber-200 bg-amber-50 text-amber-700'
-              }`}
+              className={`rounded-2xl border px-4 py-3 text-sm font-medium ${message.includes('Error')
+                ? 'border-red-200 bg-red-50 text-red-700'
+                : 'border-amber-200 bg-amber-50 text-amber-700'
+                }`}
             >
               {message}
             </div>
