@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const itemRoutes = require('./routes/items');
 const userRoutes = require('./routes/user');
@@ -25,8 +26,11 @@ mongoose
     process.exit(1);
   });
 
+// Serve static files from the views directory
+app.use(express.static(path.join(__dirname, 'views')));
+
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Hello from Dharmjivan Oil Mill backend!' });
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 // Use item routes

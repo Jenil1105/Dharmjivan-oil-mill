@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dharmjivan Oil Mill</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-box">
+                <img src="/dharmjivan_full.png" alt="Dharmjivan logo" class="logo-img" />
+            </div>
+            <div class="logo-text">
+                Dharmjivan Oil Mill
+            </div>
+        </a>
+        <div class="nav-links">
+            <button class="btn btn-outline" onclick="openModal('loginModal')">Log In</button>
+            <button class="btn btn-primary" onclick="openModal('signupModal')">Sign Up</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg-glow1"></div>
+        <div class="hero-bg-glow2"></div>
+
+        <h1>Premium Quality Oil Directly From Nature</h1>
+        <p>Experience the finest, purest oils extracted with modern precision and traditional care. Dharmjivan Oil Mill
+            brings goodness straight to your kitchen.</p>
+        <button class="btn btn-primary btn-large" style="display: flex; align-items: center; gap: 0.5rem;"
+            onclick="openModal('signupModal')">
+            Get Started <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('loginModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2>Welcome Back</h2>
+            <p>Log in to manage your orders</p>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" class="form-control" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" class="form-control" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn">
+                    Log In <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+                <div class="switch-modal">
+                    New here? <a href="#" onclick="switchModal('loginModal', 'signupModal')">Create an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('signupModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2>Create Account</h2>
+            <p>Join Dharmjivan to explore premium products</p>
+
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" class="form-control" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-btn">
+                    Sign Up <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <div class="switch-modal">
+                    Already have an account? <a href="#" onclick="switchModal('signupModal', 'loginModal')">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
