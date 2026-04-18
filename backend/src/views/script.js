@@ -75,6 +75,11 @@ async function handleLogin(e) {
             }
             closeModal('loginModal');
             form.reset();
+
+            // Redirect if role is admin
+            if (data.user && data.user.role === 'admin') {
+                window.location.href = 'http://localhost:5173';
+            }
         } else {
             alert('Login failed: ' + (data.error || 'Invalid credentials'));
         }

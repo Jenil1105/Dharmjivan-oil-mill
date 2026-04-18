@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const itemRoutes = require('./routes/items');
 const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
 const cors = require('cors');
 
 const app = express();
@@ -35,6 +36,9 @@ app.get('/', (req, res) => {
 
 // Use item routes
 app.use('/items', itemRoutes);
+
+// Auth routes
+app.use('/auth', authRoutes);
 
 // User routes
 app.use('/users', userRoutes);

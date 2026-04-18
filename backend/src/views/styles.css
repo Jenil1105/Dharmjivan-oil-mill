@@ -124,12 +124,10 @@ nav {
     background: var(--primary);
     border: 1px solid transparent;
     color: var(--text-light);
-    box-shadow: 0 4px 6px -1px var(--primary-glow), 0 2px 4px -1px var(--primary-glow);
 }
 
 .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px var(--primary-glow), 0 4px 6px -2px var(--primary-glow);
 }
 
 /* Hero Section */
