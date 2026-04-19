@@ -1,17 +1,17 @@
 const navigationItems = [
-  { id: 'dashboard', label: 'Dashboard', href: '/' },
-  { id: 'items', label: 'Catalog', href: '/items' },
-  { id: 'add-item', label: 'Add Product', href: '/add-item' },
+  { id: 'dashboard', label: 'Dashboard', href: '/admin' },
+  { id: 'items', label: 'Catalog', href: '/admin/items' },
+  { id: 'add-item', label: 'Add Product', href: '/admin/add-item' },
 ]
 
-function Header() {
+function Header({ activeView, setActiveView }) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-red-100 bg-[rgba(255,252,248,0.96)] backdrop-blur-xl">
 
       <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <a href="/" className="flex min-w-0 items-center gap-3">
+          <a href="/admin" className="flex min-w-0 items-center gap-3">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white ring-1 ring-red-100">
               <img src="/dharmjivan_full.png" alt="Dharmjivan logo" className="h-9 w-9 object-contain" />
             </div>
@@ -32,8 +32,7 @@ function Header() {
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.history.pushState(null, '', item.href);
-                    window.dispatchEvent(new Event('popstate'));
+                    setActiveView(item.id);
                   }}
                   className={`min-w-[100px] border text-center whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition ${isActive
                     ? 'border-transparent bg-red-600 text-white shadow-md shadow-red-100'

@@ -32,7 +32,7 @@ async function handleSignup(e) {
     };
 
     try {
-        const response = await fetch('/users/register', {
+        const response = await fetch('/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -60,7 +60,7 @@ async function handleLogin(e) {
     const password = form[1].value;
 
     try {
-        const response = await fetch('/users/login', {
+        const response = await fetch('/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -68,7 +68,7 @@ async function handleLogin(e) {
         const data = await response.json();
 
         if (response.ok) {
-            alert('Login successful! Welcome back.');
+            //alert('Login successful! Welcome back.');
             // Store token if applicable or handle redirection
             if (data.token) {
                 localStorage.setItem('token', data.token);
@@ -78,7 +78,10 @@ async function handleLogin(e) {
 
             // Redirect if role is admin
             if (data.user && data.user.role === 'admin') {
-                window.location.href = 'http://localhost:5173';
+                window.location.href = 'http://localhost:5173/admin';
+            }
+            if (data.user && data.user.role === 'customer') {
+                window.location.href = 'http://localhost:5173/';
             }
         } else {
             alert('Login failed: ' + (data.error || 'Invalid credentials'));

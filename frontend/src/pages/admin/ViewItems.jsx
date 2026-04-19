@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import ItemCard from './ItemCard'
+import ItemCard from '../../components/admin/ItemCard'
 
 const formatCurrency = (value) =>
   new Intl.NumberFormat('en-IN', {
