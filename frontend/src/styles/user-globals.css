@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #dc2626;
+  --color-primary-hover: #b91c1c;
+  --color-primary-glow: rgba(220, 38, 38, 0.2);
+  
+  --color-bg-base: #fffdfa;
+  
+  --color-glass-bg: rgba(255, 253, 250, 0.85);
+  --color-glass-border: rgba(254, 226, 226, 0.8);
+  
+  --font-manrope: "Manrope", sans-serif;
+  
+  --shadow-soft: 0 10px 25px -5px rgba(220, 38, 38, 0.05), 0 8px 10px -6px rgba(220, 38, 38, 0.01);
+  --shadow-hover: 0 20px 25px -5px rgba(220, 38, 38, 0.1), 0 10px 10px -5px rgba(220, 38, 38, 0.04);
+  
+  --animate-dropdown-fade: dropdownFade 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  @keyframes dropdownFade {
+    from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-base);
+    font-family: var(--font-manrope);
+    color: var(--color-slate-900);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+}
+
+@layer components {
+  .background-glow {
+    @apply fixed inset-0 -z-10 pointer-events-none;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(254, 226, 226, 0.5), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(254, 243, 199, 0.5), transparent 40%);
+  }
+
+  .product-image-gradient {
+    background: linear-gradient(135deg, #fef2f2 0%, #fffcf8 100%);
+  }
+}

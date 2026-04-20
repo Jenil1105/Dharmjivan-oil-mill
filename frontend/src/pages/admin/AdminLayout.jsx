@@ -21,6 +21,39 @@ export default function AdminLayout() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    const userFromUrl = urlParams.get('user');
+
+    if (tokenFromUrl && userFromUrl) {
+      localStorage.setItem('token', tokenFromUrl);
+      localStorage.setItem('user', userFromUrl);
+      
+      // Clean up URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const token = localStorage.getItem('token');
+      const storedUser = localStorage.getItem('user');
+
+      if (!token || !storedUser) {
+        window.location.href = 'http://localhost:3000';
+        return;
+      }
+
+      try {
+        const user = JSON.parse(storedUser);
+        if (user.role !== 'admin') {
+          window.location.href = 'http://localhost:3000';
+          return;
+        }
+      } catch (e) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'http://localhost:3000';
+        return;
+      }
+    }
+
     const handlePopState = () => {
       const path = location.pathname;
       if (path === '/admin/add-item') setInternalActiveView('add-item');
